@@ -1,0 +1,57 @@
+import numpy
+
+print("PRECOMPUTE PCA512 CLS128 MEAN POOLED TRAIN NPY ARRAY:")
+first_data_array = numpy.load('testOutputs/UnsupervisedTestOutput/precompute_pca512_cls128_mean_pooled/train.npy')
+print("Array Summary:")
+print(first_data_array)
+print("Array Shape:")
+print(first_data_array.shape)
+
+print("CLUS128 CENTROIDS NPY ARRAY:")
+centroids_array = numpy.load('testOutputs/UnsupervisedTestOutput/CLUS128/centroids.npy')
+print("Array Summary:")
+print(centroids_array)
+print("Array Shape:")
+print(centroids_array.shape)
+
+print("CLUS TRAIN SRC FILE VALUES:")
+with open('testOutputs/UnsupervisedTestOutput/CLUS128/train.src') as f:
+	clusTrainSrcVals = f.read()
+	clusTrainSrcValsSplit = clusTrainSrcVals.split()
+	print(len(clusTrainSrcValsSplit))
+
+print("PCA 512 PCA A NPY ARRAY:")
+pca_array = numpy.load('testOutputs/UnsupervisedTestOutput/pca/512_pca_A.npy')
+print("Array Summary:")
+print(pca_array)
+print("Array Shape:")
+print(pca_array.shape)
+
+print("PRECOMPUTE PCA512 TRAIN NPY ARRAY:")
+precomp_pca_array = numpy.load('testOutputs/UnsupervisedTestOutput/precompute_pca512/train.npy')
+print("Array Summary:")
+print(precomp_pca_array)
+print("Array Shape:")
+print(precomp_pca_array.shape)
+
+print("PRECOMPUTE PCA512 CLS128 MEAN TRAIN NPY ARRAY:")
+precomp_pca_cls_array = numpy.load('testOutputs/UnsupervisedTestOutput/precompute_pca512_cls128_mean/train.npy')
+print("Array Summary:")
+print(precomp_pca_cls_array)
+print("Array Shape:")
+print(precomp_pca_cls_array.shape)
+
+print("ORIGINAL TRAIN NPY ARRAY")
+orig_array = numpy.load('testOutputs/UnsupervisedTestOutput/train.npy')
+print("Array Summary:")
+print(orig_array)
+print("Array Shape:")
+print(orig_array.shape)
+
+print("USED DATA ARRAY FEATURE MAXIMUMS:")
+maxarr = numpy.amax(first_data_array, axis=1)
+minarr = numpy.amin(first_data_array, axis=1)
+print("Largest feature max: "+str(numpy.amax(maxarr)))
+print("Smallest feature max: "+str(numpy.amin(maxarr)))
+print("Largest feature min: "+str(numpy.amax(minarr)))
+print("Smallest feature min: "+str(numpy.amin(minarr)))
