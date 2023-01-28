@@ -1,7 +1,7 @@
 # Rat Automatic Transcriber System
 ### _For USV Call Categorisation_
 
-RATS is a project for transcribing recorded rat USV calls (in WAV format) into a string of call category codes. It makes use of the Wav2Vec2.0 XLSR-53 model by fairseq for initial feature extraction, and a significantly modified version of the Wav2Vec-U audio preprocessing step for processing into segment representations of individual calls.
+This is a project for transcribing recorded rat USV calls (in WAV format) into a string of call category codes. It makes use of the Wav2Vec2.0 XLSR-53 model by fairseq for initial feature extraction, and a significantly modified version of the Wav2Vec-U audio preprocessing step for processing into segment representations of individual calls.
 
 HDBSCAN Clustering has been performed on a large initial dataset, creating the clustering used at runtime to predict the probabilities that new calls fall into each cluster, for pseudo-categorisation. The set of highest-probability cluster codes are output to a text file, for any further analysis.
 
@@ -83,8 +83,4 @@ Run ```UnsupervisedAudioProcess.sh``` to extract new features on larger dataset 
 
 ## Troubleshooting/Tips
 
-- The project has its own python virtual environment with the right versions of needed tools installed. If complaints are raised about missing python modules or similar, the first port of call is to be sure this virtualenv is on. To do so, just run ```source env/bin/activate``` in the main project directory. (Just run ```deactivate``` to leave the virtualenv afterwards).
-
 - OmegaConf key error: "Key 'eval_wer' not in 'AudioPretrainingConfig'": If using the pretrained XLSR model by fairseq for initial feature extraction (available here: https://github.com/facebookresearch/fairseq/blob/main/examples/wav2vec/README.md), you might see this error. In the _oldScripts directory, find ```omegaConfErrorResolve.py```. Running it should create a new checkpoint of the model that resolves this error.
-
-- Several steps in the process make use of GPU resources through CUDA. Using ssh to connect into a cuda server (if remote connecting to a VUW cuda server, must ssh through an open server such as barretts first), ```nvidia-smi``` will display which GPUs have active processes. Several times I experienced an instance where CUDA would throw an error that no devices are available part-way through processing, when there is one or several GPUs free. The project only needs one GPU to run, but if any other GPUs are in use it can throw this error. Pick a GPU with no active processes and identify its ID. Use ```export CUDA_VISIBLE_DEVICES=x``` setting X to that GPU ID, so CUDA will only see the free GPU being used. This should resolve the error. This environmental variable only lasts within this shell session.
